@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export type ResponseProps = string | null | undefined;
 
 export class ResponseServices {
-  private props: ResponseProps;
+  private readonly props: ResponseProps;
 
   constructor(text?: ResponseProps | null) {
     this.props = text;
