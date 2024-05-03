@@ -2,6 +2,15 @@
   "name": "tos-config",
   "version": "1.10.0",
   "description": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./index.d.js"
+      },
+      "import": "./index.js"
+    }
+  },
   "scripts": {
     "build": "etsc",
     "publish": "npm publish",
