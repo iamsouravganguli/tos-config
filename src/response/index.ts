@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {ResponseProps} from "../../index";
+import {ResponseProps} from "./types";
 
 export class ResponseServices {
   private readonly props: ResponseProps;

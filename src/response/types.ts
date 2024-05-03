@@ -1,0 +1,1 @@
+export type ResponseProps = string | null | undefined;
