@@ -101,3 +101,5 @@ export type ConnectProps = {
 export type DisconnectProps = {};
 
 export type ResponseProps = string | null | undefined;
+export * from "./index";
+
