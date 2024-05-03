@@ -17,7 +17,7 @@
     "typescript": "^5.2.2"
   },
   "bin": {
-    "tos-config": "dist/index.js"
+    "tos-config": "index.js"
   },
   "author": "Sourav Ganguli <mysganguli@gmail.com>",
   "license": "MIT",
