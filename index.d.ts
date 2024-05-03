@@ -1,105 +1,55 @@
-import { Model, Document } from "mongoose";
-import {NextFunction} from "express";
+import mongoose from "mongoose";
 
-/**
- * Defines a callback function that handles a successful query result.
- * @template T The type of the query result.
- */
-export type SuccessCallback<T> = (result: T) => void;
+export interface QueryProps<T> {
+    onError?: (error) => void;
+    onSuccess?: (result: T) => void;
+    onNotFound?: () => void;
+}
 
-/**
- * Defines a callback function that handles an error during query execution.
- */
-export type ErrorCallback = (error: any) => void;
+export interface RunProps<T> {
+    modelKey: mongoose.Model<any>;
+    queryFn: (model: mongoose.Model<any>) => Promise<T>;
+    onError?: (error) => void;
+    onSuccess?: (result: T) => void;
+    onNotFound?: () => void;
+}
 
-/**
- * Defines a callback function that handles a "not found" scenario in a query result.
- */
-export type NotFoundCallback = () => void;
+export interface CatchErrorProps {
+    onError?: (error: ((error) => void) | undefined) => void;
+}
 
-/**
- * Defines a function that represents a query operation.
- * @template T The type of the query result.
- */
-export type QueryFunction<T> = (
-    model: Model<Document<any, any, any>, {}> | undefined
-) => Promise<T>;
+export declare class Query<T> {
+    private global?: QueryProps<T>;
+    private mongoose?: typeof mongoose;
 
-/**
- * Represents the properties that can be passed to a Query instance.
- * @template T The type of the query result.
- */
-export type QueryProps<T> = {
-    /**
-     * Callback function to be called on successful query execution.
-     */
-    onSuccess?: SuccessCallback<T>;
-    /**
-     * Callback function to be called when an error occurs during query execution.
-     */
-    onError?: ErrorCallback;
-    /**
-     * Callback function to be called when the query result is not found.
-     */
-    onNotFound?: NotFoundCallback;
-};
+    constructor(props?: QueryProps<T>);
 
-/**
- * Represents the properties required to run a query.
- * @template T The type of the query result.
- */
-export type RunProps<T> = {
-    /**
-     * The Mongoose model used to execute the query.
-     */
-    modelKey: Model<any>;
-    /**
-     * The function that defines the query logic.
-     */
-    queryFn: QueryFunction<T>;
-    /**
-     * Optional callback function to be called on successful query execution.
-     */
-    onSuccess?: SuccessCallback<T>;
-    /**
-     * Optional callback function to be called when an error occurs during query execution.
-     */
-    onError?: ErrorCallback;
-    /**
-     * Optional callback function to be called when the query result is not found.
-     */
-    onNotFound?: NotFoundCallback;
-};
+    public run(props: RunProps<T>): Promise<void>;
 
-/**
- * Represents the properties that can be passed to the catchError method.
- */
-export type CatchErrorProps = {
-    /**
-     * Callback function to be called when an error occurs during query execution.
-     */
-    onError?: ErrorCallback;
-};
+    public catchError(props: CatchErrorProps): void;
 
-/**
- * Represents the properties required to connect to the MongoDB database.
- */
-export type ConnectProps = {
-    /**
-     * The MongoDB connection URI.
-     */
-    dbUri: string;
-    /**
-     * The name of the database.
-     */
-    dbName: string;
-};
+    public connect(dbUri?: string, dbName?: string): Promise<void>;
 
-/**
- * Represents the properties required to disconnect from the MongoDB database.
- */
-export type DisconnectProps = {};
-
+    public disconnect(): Promise<void>;
+}
 export type ResponseProps = string | null | undefined;
-export * from "./index";
 
+// Define the ResponseServices class
+export declare class ResponseServices {
+    private readonly props: ResponseProps;
+
+    constructor(text?: ResponseProps | null);
+
+    handler: (
+        services: (req: Request, res: Response) => Promise<any>
+    ) => (req: Request, res: Response, next: NextFunction) => Promise<void>;
+
+    error: (response: Response, error: Error) => Response;
+
+    success: (
+        response: Response,
+        type: "create" | "update" | "delete" | "all" | "detail" | "other",
+        data?: any,
+        message?: string
+    ) => Response;
+}
