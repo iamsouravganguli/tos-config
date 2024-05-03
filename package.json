@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "etsc",
-    "publish": "npm run minor && npm publish",
+    "publish": "npm publish",
     "minor": "npm version minor",
     "major": "npm version major"
   },
