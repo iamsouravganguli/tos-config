@@ -12,6 +12,6 @@ export default defineConfig(({ watch = false }) => ({
     format: ['cjs', 'esm', 'iife'],
     treeshake: isProduction,
     minify: isProduction,
-    sourcemap: isProduction,
+    sourcemap: false,
     watch,
 }));
