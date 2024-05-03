@@ -1,4 +1,4 @@
-import { QueryProps, RunProps, CatchErrorProps } from "./types";
+import { QueryProps, RunProps, CatchErrorProps } from "../../index";
 import mongoose from "mongoose";
 
 /**

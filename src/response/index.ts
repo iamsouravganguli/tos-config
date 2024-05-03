@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-
-export type ResponseProps = string | null | undefined;
+import {ResponseProps} from "../../index";
 
 export class ResponseServices {
   private readonly props: ResponseProps;
@@ -30,8 +29,8 @@ export class ResponseServices {
   public success = (
     response: Response,
     type: "create" | "update" | "delete" | "all" | "detail" | "other",
-    message?: string,
-    data?: any
+    data?: any,
+  message?: string
   ) => {
     if (type === "create") {
       return response.status(200).json({ message: `${this.props} created` });

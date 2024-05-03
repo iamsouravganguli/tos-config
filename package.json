@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "etsc && npm run minor && npm run publish",
-    "publish": "npm publish --access public",
+    "build": "etsc",
+    "publish": "npm run minor && npm publish",
     "minor": "npm version minor",
     "major": "npm version major"
   },
