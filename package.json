@@ -5,11 +5,23 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {}
+  },
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "scripts": {
     "build": "tsup",
+    "dev": "tsup --watch",
     "publish": "npm publish",
     "minor": "npm version minor",
     "major": "npm version major"

@@ -1,10 +1,17 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup';
 
-export default defineConfig({
-    entry: ["src/index.ts"],
-    format: ["cjs", "esm"], // Build for commonJS and ESmodules
-    dts: true, // Generate declaration file (.d.ts)
-    splitting: false,
-    sourcemap: true,
+const isProduction = true;
+
+export default defineConfig(({ watch = false }) => ({
     clean: true,
-});
+    dts: true,
+    entry: {
+        index: 'src/index.ts',
+    },
+    external: [],
+    format: ['cjs', 'esm', 'iife'],
+    treeshake: isProduction,
+    minify: isProduction,
+    sourcemap: isProduction,
+    watch,
+}));
