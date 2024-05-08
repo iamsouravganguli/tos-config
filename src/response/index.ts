@@ -20,7 +20,7 @@ export class ResponseServices {
     };
   };
   public handlerPrint = (
-      services: any,
+      services: (req: Request, res: Response) => Promise<any>,
       fileName?:string
   ) => {
     return async (req: Request, res: Response, next: NextFunction) => {
