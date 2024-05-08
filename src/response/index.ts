@@ -25,7 +25,6 @@ export class ResponseServices {
   ) => {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
-
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader(
             "Content-Disposition",
@@ -33,7 +32,7 @@ export class ResponseServices {
                 .toString(36)
                 .substring(2, 8)}.pdf"`
         );
-        res.status( 200).send( await services(req, res));
+        await this.print(res, services)
       } catch (error) {
         next(error);
       }
@@ -73,4 +72,7 @@ export class ResponseServices {
       return response.status(200).json(data);
     }
   };
+  public print =async ( response: Response, services: (req: Request, res: Response) => Promise<any>)=>{
+    return response.status( 200).send(services)
+  }
 }
