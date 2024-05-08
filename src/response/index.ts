@@ -32,8 +32,8 @@ export class ResponseServices {
                 .toString(36)
                 .substring(2, 8)}.pdf"`
         );
-        const pdf = services(req, res)
-        res.status(200).send(await pdf)
+        await services(req, res)
+
       } catch (error) {
         next(error);
       }
@@ -73,4 +73,7 @@ export class ResponseServices {
       return response.status(200).json(data);
     }
   };
+  public print = ( response: Response,data:any)=>{
+    response.status(200).send(data)
+  }
 }
