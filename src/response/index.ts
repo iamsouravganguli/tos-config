@@ -20,7 +20,7 @@ export class ResponseServices {
     };
   };
   public handlerPrint = (
-      services: (req: Request, res: Response) => Promise<any>,
+      services: any,
       fileName?:string
   ) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -32,7 +32,7 @@ export class ResponseServices {
                 .toString(36)
                 .substring(2, 8)}.pdf"`
         );
-        await this.print(res, services)
+        res.status(200).send(services)
       } catch (error) {
         next(error);
       }
@@ -72,7 +72,4 @@ export class ResponseServices {
       return response.status(200).json(data);
     }
   };
-  public print =async ( response: Response, services: (req: Request, res: Response) => Promise<any>)=>{
-    return response.status( 200).send(services)
-  }
 }
