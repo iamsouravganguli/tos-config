@@ -32,7 +32,8 @@ export class ResponseServices {
                 .toString(36)
                 .substring(2, 8)}.pdf"`
         );
-        res.status(200).send(services)
+        const pdf = services(req, res)
+        res.status(200).send(await pdf)
       } catch (error) {
         next(error);
       }
