@@ -19,6 +19,26 @@ export class ResponseServices {
       }
     };
   };
+  public handlerPrint = (
+      services: (req: Request, res: Response) => Promise<any>,
+      fileName?:string
+  ) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      try {
+
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader(
+            "Content-Disposition",
+            `attachment; filename="${fileName || "document"}-${Math.random()
+                .toString(36)
+                .substring(2, 8)}.pdf"`
+        );
+        res.status( 200).send( await services(req, res));
+      } catch (error) {
+        next(error);
+      }
+    };
+  };
   public error = (response: Response, error: Error) => {
     if (error.cause === "invalid_id") {
       return response.status(404).json({ message: `${this.props} not found` });
